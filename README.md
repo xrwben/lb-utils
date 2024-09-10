@@ -4,6 +4,8 @@
 
 &emsp;我相信对于绝大部分有一定工具经验的小伙伴来说，都有个开发 Javascript 库的经验，但是我在网上搜索了一下，却是鲜有完整的或成体系的文章输出，虽然书中某些工具版本比较老了，但是重要的是大佬像我们输出了如何开发一个 Javascript 库的思想。书中作者表示：“每一个开发者都拥有两个世界：一个是业务世界，另一个是开源世界。” 通过读后感受，结合平常接触的知识，做一个读书分享，也带大家一起学习如何进入开源的世界。
 
+> 纸上得来终觉浅，绝知此事要躬行。
+
 ## 一、编写代码
 
 ### 一体化开发
@@ -206,7 +208,6 @@ npm（Node Package Manager）是 Node.js 的默认包管理工具，随 Node.js 
 
 一些常用的基础命令就不一一列举了，毕竟天天使用，主要跟发布相关，这里是[npm CLI 传送门](https://docs.npmjs.com/cli/v10/commands/npm)
 
-
 **配置文件**
 
 1、`package.json`
@@ -219,33 +220,31 @@ npm（Node Package Manager）是 Node.js 的默认包管理工具，随 Node.js 
 
 - `version` 项目版本号，遵循 SemVer（语义化版本）规范。
 
-- `main` 用于指定CommonJS模块的入口
+- `main` 用于指定 CommonJS 模块的入口
 
-- `module` 用于指定包的ES模块入口（Node 却并未采纳，打包工具却普遍支持了该字段）
+- `module` 用于指定包的 ES 模块入口（Node 却并未采纳，打包工具却普遍支持了该字段）
 
-- `browser` 用于指定浏览器使用的入口文件，例如umd模块
+- `browser` 用于指定浏览器使用的入口文件，例如 umd 模块
 
-- `exports` 在Node.js 12+中被支持作为"main"的替代方案（在"exports"中定义的所有路径必须是以./开头的相对文件URL）
+- `exports` 在 Node.js 12+中被支持作为"main"的替代方案（在"exports"中定义的所有路径必须是以./开头的相对文件 URL）
 
-- `files` 指定哪些文件被推到npm服务器
+- `files` 指定哪些文件被推到 npm 服务器
 
 还有一些其它配置字段我们会在后面用到的时候陆陆续续讲解。
 
-注意：通常browser > module > main,  具体用法可参考这篇[文章](https://juejin.cn/post/6844903862977953806)
+注意：通常 browser > module > main, 具体用法可参考这篇[文章](https://juejin.cn/post/6844903862977953806)
 
-`package.json` 配置完全解读可进入[传送门](https://juejin.cn/post/7145001740696289317)，官方文档进入[package.json传送门](https://docs.npmjs.com/cli/v10/configuring-npm/package-json)
-
+`package.json` 配置完全解读可进入[传送门](https://juejin.cn/post/7145001740696289317)，官方文档进入[package.json 传送门](https://docs.npmjs.com/cli/v10/configuring-npm/package-json)
 
 图
 
-
 2、`.npmrc`
 
-定义：指定npm运行时的配置内容
+定义：指定 npm 运行时的配置内容
 
 优先级： 项目内 > 用户 > 全局 > 内置配置
 
-具体配置内容可以查看官方文档，进入[.npmrc传送门](https://docs.npmjs.com/cli/v10/configuring-npm/npmrc)
+具体配置内容可以查看官方文档，进入[.npmrc 传送门](https://docs.npmjs.com/cli/v10/configuring-npm/npmrc)
 
 **nrm**
 
@@ -253,13 +252,13 @@ NPM 源管理工具，快速切换不同的源，[传送门](https://github.com/
 
 常用命令：
 
-- `npm install -g nrm` 使用npm全局安装nrm工具
+- `npm install -g nrm` 使用 npm 全局安装 nrm 工具
 
-- `nrm ls` 列出可选的源，如果有使用的前面则会带`*`号，会覆盖npm的设置
+- `nrm ls` 列出可选的源，如果有使用的前面则会带`*`号，会覆盖 npm 的设置
 
 - `nrm add 名字 http://地址` 添加一个源
 
-- `nrm use xxx` 使用xxx源，`nrm use cnpm`表示使用cnpm源
+- `nrm use xxx` 使用 xxx 源，`nrm use cnpm`表示使用 cnpm 源
 
 ##### yarn
 
@@ -283,7 +282,7 @@ pnpm vs npm
 
 了解更多请进入[传送门](https://www.pnpm.cn)
 
-##### npm/yarn/pnpm对比
+##### npm/yarn/pnpm 对比
 
 图
 
@@ -291,37 +290,37 @@ pnpm vs npm
 
 &emsp;构建工具是指用于自动化构建前端代码的工具，其主要功能包括编译、压缩、合并、转码等。
 
-&emsp;说到构建工具，我记得刚步入社会那会，有个外包项目到甲方公司驻场，第一次使用vue遇到一些问题，需要修改一些webpack配置才行，我一头雾水，然后请教甲方公司的人，那个大佬（真大佬还加了微信，后来好像去北大读博，目前好像在某个政府机构工作）给我说打包工具一定要了解，后面就学着开始从零配置webpack构建一个应用，再到后来了解到越来越多打包工具gulp，rollup等等，再到现在比较流行的vite等。
+&emsp;说到构建工具，我记得刚步入社会那会，有个外包项目到甲方公司驻场，第一次使用 vue 遇到一些问题，需要修改一些 webpack 配置才行，我一头雾水，然后请教甲方公司的人，那个大佬（真大佬还加了微信，后来好像去北大读博，目前好像在某个政府机构工作）给我说打包工具一定要了解，后面就学着开始从零配置 webpack 构建一个应用，再到后来了解到越来越多打包工具 gulp，rollup 等等，再到现在比较流行的 vite 等。
 
 &emsp;最近看到某博主写的前端构建工具大盘点文章，看到这么多构建我真有点绷不住了，进入[传送门](https://mp.weixin.qq.com/s/AquQMMvgW2quw_rzlYRHRg)
 
 图
 
-除了上图所列，还有许多其它工具，每个都说自己性能多好多牛逼，但是五星上将麦克阿瑟说过，构建js库他只推荐rollup。所以我们也使用 `rollup` 来构建我们的工具库：
+除了上图所列，还有许多其它工具，每个都说自己性能多好多牛逼，但是五星上将麦克阿瑟说过，构建 js 库他只推荐 rollup。所以我们也使用 `rollup` 来构建我们的工具库：
 
 ```js
 // rollup.config.js
 export default {
-	input: 'src/index.js',
-	output: [
-		{
-			file: 'dist/bundle.esm.js',
-			format: 'es'
-		},
-		{
-			file: 'dist/bundle.umd.js',
-			format: 'umd',
-			name: 'LBUtils'
-		}
-	]
-}
+  input: "src/index.js",
+  output: [
+    {
+      file: "dist/bundle.esm.js",
+      format: "es",
+    },
+    {
+      file: "dist/bundle.umd.js",
+      format: "umd",
+      name: "LBUtils",
+    },
+  ],
+};
 ```
 
 `rollup` 使用指南请进入[传送门](https://rollupjs.org/tutorial/)
 
 ### 编译
 
-&emsp;理想的情况下是我们美滋滋的写ES6+的代码，使用者能够在各种环境下运行，但是理想很丰满，现实很骨感，当使用者越来越多可能出现的问题就越多，这时就需要编译我们的代码 使其能兼容不同浏览器或环境。
+&emsp;理想的情况下是我们美滋滋的写 ES6+的代码，使用者能够在各种环境下运行，但是理想很丰满，现实很骨感，当使用者越来越多可能出现的问题就越多，这时就需要编译我们的代码 使其能兼容不同浏览器或环境。
 
 ##### Bable 是什么
 
@@ -349,20 +348,21 @@ Babel 是一个 JavaScript 编译器，主要用于将采用 ECMAScript 2015+ �
 
 这里我们可以查看[官方文档](https://www.babeljs.cn/setup#installation)，主要是安装 Bable 相关插件和增加一些配置文件，分三步配置：
 
-安装相关依赖 > 构建工具配置 > 创建bable配置文件开启预设
+安装相关依赖 > 构建工具配置 > 创建 bable 配置文件开启预设
+
 ```
 npm install --save-dev @rollup/plugin-babel @babel/core @babel/preset-env
 ```
+
 ```js
 // rollup.config.js
-import babel from '@rollup/plugin-babel';
+import babel from "@rollup/plugin-babel";
 
 export default {
-	plugins: [
-		babel({ babelHelpers: 'bundled' })
-	]
-}
+  plugins: [babel({ babelHelpers: "bundled" })],
+};
 ```
+
 ```js
 // bable.config.json 需要配置这个文件开启预设，否则上面配置还不能生效
 {
@@ -370,15 +370,149 @@ export default {
 }
 ```
 
-rollup配置Babel查看这里[传送门](https://rollupjs.org/tools/#babel)，其它构建工具中如何使用可参考这里[传送门](https://www.babeljs.cn/setup#installation)
+rollup 配置 Babel 查看这里[传送门](https://rollupjs.org/tools/#babel)，其它构建工具中如何使用可参考这里[传送门](https://www.babeljs.cn/setup#installation)
 
-## 测试
 
-## 开源
+## 三、测试
+
+&emsp;为什么需要测试？你说为什么，假如一个 js 库或者组件没有测试过你敢用吗？你平时写业务需求不测试敢上线吗？五星上将麦克阿瑟曾说过，没有单元测试的库都是耍流氓。业务代码由于一次性和时间成本可以不做单元测试，但开源库由于需要反复迭代，对质量要求又极高，所以单元测试是必不可少的。
+
+- 确保代码质量和可靠性
+
+- 提高代码可维护性
+
+- 快速定位问题
+
+### 测试分类
+
+- 单元测试
+
+- 组件测试
+
+- 端到端（E2E）测试
+
+### 测试场景
+
+- 开发纯函数库，建议写更多的单元测试 + 少量的集成测试
+
+- 开发组件库，建议写更多的单元测试、为每个组件编写快照测试、写少量的集成测试 + 端到端测试
+
+- 开发业务系统，建议写更多的集成测试、为工具类库、算法写单元测试、写少量的端到端测试
+
+- 开发公共平台项目，建议写更多的集成测试和完整的端到端测试
+
+### 测试框架
+
+&emsp;测试框架很多，一些流行的前端自动化测试框架包括Jest、Mocha、Chai、Protractor和Cypress等，我们可以根据不同的场景选择不同的框架，这里我们是一个纯js函数库，我们可以选择最流行的jest，也可以选择比较新的 vitest 等，而 Vitest 完全的集成了老牌 jest 的功能，具体对比可以看传送门：[Vitest 与 X 有何不同](https://cn.vitest.dev/guide/comparisons.html)
+
+具体如何使用参考官方的网站，下面是我们需要编写的测试用例代码：
+
+图片测试-1
+
+图中覆盖率表格说明：
+- 行覆盖率（Lines）：显示代码中有多少行被执行了
+- 函数覆盖率（Functions）：显示代码中有多少函数被调用了
+- 分支覆盖率（Branches）：显示代码中有多少条件分支被执行了
+- 语句覆盖率（Statements）：显示代码中有多少语句被执行了
+- 未覆盖的行号（uncovered line）：显示代码中哪几行未覆盖执行
+
+### 设计测试用例
+
+&emsp;用什么测试框架并不重要，重要的是如何编写测试用例，上面我们虽然写了index.js文件中isJson行数的单元测试，但是通过覆盖率报告发现还是有一些代码没有测试到，所以如何设计测试用例就变得很关键，那么我们改如何去设计呢？书中大佬给出了一种方案，那就是根据参数去设计，包括**正确的测试用例**、**错误的测试用例**、**边界值测试用例**，这里我们只有一个参数，所以我们测试用例需要覆盖三种情况。
+
+下面是改造后的测试用例代码：
+
+图测试-2
+
+从上图测试覆盖率报告可以看到，基本上所有代码执行都覆盖到了。
+
+&emsp;关于如何设计测试用例是一门学问，这里举例的场景比较单一，集成化测试、端到端的测试用例设计将更加复杂，大家可以去看看一些开源库是如何编写的，比如React、Vue等这些著名的框架测试用例设计想是十分值得我们去学习的。
+
+
+## 四、开源
+
+&emsp;当我们代码写完，测试也通过了，那么我们就可以把我们的代码开源给其他人使用了。如何给别人用，那当然是发布了，也就是开源。通常包括两部分：
+
+- 把源码推到全球最大同性交友网站 `GitHub`，让其它开发者可以查阅和参与
+
+- 把构建后的代码发布到 `npm`，让其他人可以下载使用
+
+&emsp;我们平常在 Github 上访问一些比较流行的库时可能有些细心的人会发现源码中有许多跟代码不直接相关的文档，比如`LICENSE`、`CONTRIBUTING.md`、`CHANGELOG.md`、`SECURITY.md`、`README.md`等，不管是开源还是使用，如果不注意的话很可能就对带来意外的问题，严重甚至破财，下面我们就说一说开源大概需要注意哪些事项。
+
+### 协议
+
+&emsp;最近开源社区发生了一件知名开源作者删库跑路事件，一位知名的开源项目作者突然在 GitHub 上删除了其开发的下载工具Aria的所有源码，这位作者选择删除代码的原因，却让人感到痛心：他表示由于项目被不法分子利用，不得不采取这一极端措施。所以规范好开源协议还是十分重要的，如果一个不小心进去了都不知道什么情况。
+
+&emsp;开源协议（Open Source License）是用于定义开源软件的使用、修改和分发的法律条款。不同的开源协议有不同的要求和限制，选择合适的开源协议对于项目的成功和社区的发展至关重要。作为一个开发者，如果你打算开源自己的代码，千万不要忘记，选择一种开源许可证（license）。
+
+&emsp;当我们每次通过 `npm init` 命令初始化一个工程的 package.json 文件时，会有 `license` 配置项让我们配置，默认是 ISC，如果你仔细看了一些开源的代码，会发现都会有不同的值，大多数比如 vue、react、eslint 仓库中 package.json 文件 license 配置的值就是 `MIT`协议，而 weex、typescript 选择的是 `Apache-2.0`协议。
+
+&emsp;什么是开源许可证？可以参考阮一峰大神的文章，传送门[开源许可证教程](http://www.ruanyifeng.com/blog/2017/10/open-source-license-tutorial.html)，目前世界上的开源许可证，大概有上百种，例如GPL、BSD、MIT、Mozilla、Apache和LGPL等，那么我们要如何为代码选择开源许可证，这是一个问题？不过问题不大，有大佬帮我们总结出来了，如图：
+
+![free_software_licenses.png](https://upload-images.jianshu.io/upload_images/23495033-24c151b45a33afbd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+![wKgaomRWILaAX-pCAABiqRiTBu4065.jpg](https://upload-images.jianshu.io/upload_images/23495033-60d3e01ffaa6aa65.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+我们开源一个js工具库该如何选择呢，遇事不决选 MIT ，那么package.json 中填写了协议配置就行了吗？非也非也，你只有协议，但是没有协议内容不就是一个空口承诺，所以我们需要在我们的仓库中添加一个名为`LICENSE`的文件，这个文件中就是我们协议的具体说明内容。
+
+```
+The MIT License (MIT)
+
+Copyright (c) 2024-present XXX
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+```
+
+类似与上面这种格式，还可以添加多个，但是我有问题疑问，中国人为啥不用中文？
+
+
+### 文档
+
+### 发布
+
+&emsp;前面构建部分我们已经简单介绍了`npm`及常用指令，我们发布代码到`npm`就需要用
+
+### 统计
 
 ## 维护
 
+### 规范
+
+编辑器规范
+
+代码规范
+
+版本规范
+
+Git Commit 规范
+
+### 持续集成
+
+### 分支处理
+
 ## 更好的设计
+
+更好的函数设计
+代码健壮性
+兼容性
+TypeScript 编码
+安全性
 
 ## 参考
 
@@ -402,3 +536,14 @@ rollup配置Babel查看这里[传送门](https://rollupjs.org/tools/#babel)，�
 
 - https://juejin.cn/post/7233765235555188791
 
+- https://juejin.cn/post/7303789262989017099
+
+- https://cn.vuejs.org/guide/scaling-up/testing
+
+- https://github.com/goldbergyoni/javascript-testing-best-practices/blob/master/readme-zh-CN.md#%E7%AC%AC%E4%B8%89%E7%AB%A0-%E5%89%8D%E7%AB%AF%E6%B5%8B%E8%AF%95
+
+- http://www.ruanyifeng.com/blog/2017/10/open-source-license-tutorial.html
+
+- http://www.ruanyifeng.com/blog/2011/05/how_to_choose_free_software_licenses.html
+
+- https://www.runoob.com/w3cnote/open-source-license.html?spm=a2c6h.13046898.publish-article.3.223b6ffaMgp7h1
