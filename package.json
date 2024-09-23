@@ -1,0 +1,43 @@
+{
+  "name": "lb-utils",
+  "version": "1.0.0",
+  "description": "JavaScript工具包",
+  "type": "module",
+  "main": "dist/lb-utils.umd.js",
+  "module": "dist/lb-utils.esm.js",
+  "exports": {
+    "import": "./dist/lb-utils.esm.js",
+    "require": "./dist/lb-utils.umd.js"
+  },
+  "scripts": {
+    "dev": "rollup --config rollup.config.js --watch",
+    "build": "rollup --config rollup.config.js",
+    "test": "vitest --config vitest.config.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "repository": "https://registry.npmjs.org",
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xrwben/lb-utils.git"
+  },
+  "author": "liben",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xrwben/lb-utils/issues"
+  },
+  "homepage": "https://github.com/xrwben/lb-utils#readme",
+  "devDependencies": {
+    "@babel/core": "^7.25.2",
+    "@babel/preset-env": "^7.25.3",
+    "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@vitest/coverage-istanbul": "^0.34.6",
+    "rollup": "^2.79.1",
+    "vitest": "^0.34.6"
+  }
+}
