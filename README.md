@@ -479,16 +479,112 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ```
 
-类似与上面这种格式，还可以添加多个，但是我有问题疑问，中国人为啥不用中文？
-
+类似与上面这种格式，还可以添加多个，但是我有问题疑问，如果用中文行吗？
 
 ### 文档
 
+&emsp;除了协议外，一个标准的库还应该包括各种各样的文档。
+
+- README
+- 待办清代
+- 变更日志
+- 贡献者列表
+- 贡献者盟约行为守则
+- package.json
+
+&emsp;`README.md`是最常见的，也是一个库最先看到的文档内容，一定程度直接影响库的使用者的选择，一个合格的README通常包括库的介绍、使用指南、贡献者指南、协议说明等，如果库功能不多可能API文档也会直接写在README文件中，当然除了这些还可以包含一些其它与库相关的说明，现在库还会在文档增加一些[Tag徽章](https://shields.io/badges/static-badge)，由于各库的功能不一致目前README也没有统一的标准。
+
+![NPM Version](https://img.shields.io/npm/v/vue)  ![NPM Downloads](https://img.shields.io/npm/dm/vue)
+
+ ![build status](https://github.com/vuejs/core/actions/workflows/ci.yml/badge.svg?branch=main)
+
+ ![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)
+
+ ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)]
+
+&emsp;`TODO.md`文件不是很常见，其作用主要是列出已经完成的功能和会在未来添加的新功能，通常也会直接写在README文件中。
+
+```
+# todo.md文件
+- [X] 完成了是否是json判断函数（isJson）
+- [ ] 支持深度拷贝
+- [ ] 支持UUID生成
+```
+
+&emsp;`CHANGELOG.md`用来记录每次发版的变更内容，一是可以让开发者记录变更备忘，二是让使用者了解每个版本的特性和功能，避免风险。变更日志一般会记录版本号、变更时间、变更内容。
+
+```
+# changelog.md文件
+
+## 0.0.2
+
+2024-09-20
+
+### Bug Fixes
+
+- 修复isJson方法空参判断bug
+
+
+## 0.0.1
+
+2024-09-18
+
+### Features
+
+- 新增isJson方法
+```
+
 ### 发布
 
-&emsp;前面构建部分我们已经简单介绍了`npm`及常用指令，我们发布代码到`npm`就需要用
+&emsp;当我们代码开发完成，测试通过，文档也写好了，那么我们就可以准备把我们的库发布到 GitHub 和 npm 上了。
+
+#### 源码发布到GitHub
+
+&emsp;注册登录好 GitHub 账号后，然后创建一个仓库，随后使用 Git 把代码推送到仓库，需要注意的是构建后的代码、node_module、测试报告等是不需要推送上去的，我我们通过 `.gitignore` 文件过滤掉。
+
+#### 构建后的代码发布到npm
+
+&emsp;如果别人想要使用我们的库，通过GitHub只能手动下载下来，而npm是全球最大的包托管平台，将库发布到npm后只需要一个命令就可下载下来，所以我们需要把构建好的文件发布到npm。前面构建部分我们已经简单介绍了 npm 及常用指令，我们发布代码到 npm 同样需要注册登录账号，注册完成后就可以使用命令行登录发布了。
+
+```bash
+# 第一步：登录账号，输入账号密码邮箱登信息
+npm login 
+
+# 第二步：推到托管平台
+npm publish --access public
+```
+&emsp;就这样简单两步就完成了，但是在发布到npm前还有一些需要注意的地方，比如npm的源地址是公司的还是官方平台，比如确认哪些文件需要发布到npm，如果一股脑全部推上去会影响包的大小和下载速度，还有package.json中的一些信息也需要完善，通过npm包可以直接找到源码仓库等。
+
+&emsp;`README.md`、`CHANGELOG.md`、`package.json`文件是默认需要发布的，而`.gitignore`中间列出来的文件是会忽略的，我们可以通过.gitignore来过滤不需要推送到npm包托管平台的文件，但是更常用的做法是通过 package.json 中的 `files`属性来配，而且优先级更高。
+
+```bash
+{
+	# 发布的文件白名单
+  "files": [
+    "dist"
+  ],
+  # 发布的命令行参数
+  "publishConfig": {
+    "repository": "https://registry.npmjs.org",
+    "access": "public"
+  },
+  # 仓库地址
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xrwben/lb-utils.git"
+  },
+  # 源码主页地址
+  "homepage": "https://github.com/xrwben/lb-utils#readme",
+}
+```
+
+&emsp;还有一个注意的点就是版本号，npm是通过版本号来管理不同的版本，每次发布版本也要不同，后面规范部分再详细介绍。
 
 ### 统计
+
+&emsp;当我们发布了我们的库后，想要了解库的使用情况、问题、受关注度等，就可以通过GitHub和npm平台统计出来，比较直观的就是GitHub上的star数量了，然后Insights面板也有更详细的统计等，npm平台上有下载使用数据等可统计，需要注意的是可能通过其它镜像源下载的统计不出来。 
+
+&emsp;如果想要数据准确也可以自定义统计数据，通过npm提供的postinstall钩子来上报数据，用户安装就会触发钩子上报统计，但没必要。
 
 ## 维护
 
@@ -547,3 +643,7 @@ TypeScript 编码
 - http://www.ruanyifeng.com/blog/2011/05/how_to_choose_free_software_licenses.html
 
 - https://www.runoob.com/w3cnote/open-source-license.html?spm=a2c6h.13046898.publish-article.3.223b6ffaMgp7h1
+
+- https://zhuanlan.zhihu.com/p/697744701
+
+- https://shields.io/badges/npm-downloads
