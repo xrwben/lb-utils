@@ -1,16 +1,16 @@
 // export { formatThousandStyle } from './number.js'
 // 判断是否是json
-export const isJson = (value) => {
-	try {
-	  const obj = JSON.parse(value)
-	  // console.log('>>', obj)
-	  if (obj && typeof obj === 'object') {
-	    return true
-	  }
-	  return false
-	} catch (err) {
-	  return false
-	}
+export const isJson = value => {
+    try {
+        const obj = JSON.parse(value)
+        // console.log('>>', obj)
+        if (obj && typeof obj === 'object') {
+            return true
+        }
+        return false
+    } catch (err) {
+        return false
+    }
 }
 
 // export const testFn = (...rest) => {
