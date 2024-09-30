@@ -1,6 +1,6 @@
 // export { formatThousandStyle } from './number.js'
 // 判断是否是json
-export const isJson = value => {
+export const isJson = (value) => {
     try {
         const obj = JSON.parse(value)
         // console.log('>>', obj)
@@ -9,6 +9,7 @@ export const isJson = value => {
         }
         return false
     } catch (err) {
+        console.log(err)
         return false
     }
 }
