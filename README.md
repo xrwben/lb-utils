@@ -15,15 +15,15 @@
 ```js
 // 判断是否是json
 function isJson(value) {
-  try {
-    const obj = JSON.parse(value);
-    if (obj && typeof obj === "object") {
-      return true;
+    try {
+        const obj = JSON.parse(value)
+        if (obj && typeof obj === 'object') {
+            return true
+        }
+        return false
+    } catch (err) {
+        return false
     }
-    return false;
-  } catch (err) {
-    return false;
-  }
 }
 ```
 
@@ -41,36 +41,36 @@ function isJson(value) {
 &emsp;为了解决一体化开发带来的问题，就相继出现了各种模块化的开发方式，比如在 ES 模块 出现前，比较流行的 UMD， 全称为 Universal Module Definition，即统一模块定义。那么我们的 JavaScript 工具代码就变成下面这样：
 
 ```js
-(function (global, factory) {
-  // 根据当前的环境采取不同的导出方式
-  if (typeof define === "function" && define.amd) {
-    // ADM
-    define(factory);
-  } else if (typeof exports === "object") {
-    // CommomJS
-    module.exports = factory();
-  } else {
-    // 非模块化环境
-    global.LBUtils = factory();
-  }
-})(this, function () {
-  // 判断是否是json
-  const isJson = (value) => {
-    try {
-      const obj = JSON.parse(value);
-      console.log(">>", obj);
-      if (obj && typeof obj === "object") {
-        return true;
-      }
-      return false;
-    } catch (err) {
-      return false;
+;(function (global, factory) {
+    // 根据当前的环境采取不同的导出方式
+    if (typeof define === 'function' && define.amd) {
+        // ADM
+        define(factory)
+    } else if (typeof exports === 'object') {
+        // CommomJS
+        module.exports = factory()
+    } else {
+        // 非模块化环境
+        global.LBUtils = factory()
     }
-  };
-  return {
-    isJson,
-  };
-});
+})(this, function () {
+    // 判断是否是json
+    const isJson = value => {
+        try {
+            const obj = JSON.parse(value)
+            console.log('>>', obj)
+            if (obj && typeof obj === 'object') {
+                return true
+            }
+            return false
+        } catch (err) {
+            return false
+        }
+    }
+    return {
+        isJson
+    }
+})
 ```
 
 通过这种方式，我们编写的代码就可以在不同的环境使用。
@@ -89,27 +89,27 @@ function isJson(value) {
 
 ##### 模块化好处
 
-- **可维护性：** 模块化使得软件更容易维护和更新，因为每个模块都是独立的，可以单独修改和测试。
+-   **可维护性：** 模块化使得软件更容易维护和更新，因为每个模块都是独立的，可以单独修改和测试。
 
-- **可重用性：** 模块化允许开发者在不同的项目中重用已有的模块，减少重复工作。
+-   **可重用性：** 模块化允许开发者在不同的项目中重用已有的模块，减少重复工作。
 
-- **可扩展性：** 随着系统需求的增长，可以添加新的模块来扩展系统的功能，而不影响现有模块。
+-   **可扩展性：** 随着系统需求的增长，可以添加新的模块来扩展系统的功能，而不影响现有模块。
 
 总之通过模块化，你可以更有效地组织和管理代码，提高开发效率和代码质量。
 
 ##### 模块化规范
 
-- **IIFE：** 立即调用函数表达式
+-   **IIFE：** 立即调用函数表达式
 
-- **AMD：** 异步模块加载机制
+-   **AMD：** 异步模块加载机制
 
-- **CMD：** 通用模块定义
+-   **CMD：** 通用模块定义
 
-- **UMD：** 统一模块定义
+-   **UMD：** 统一模块定义
 
-- **CommonJS：** Node.js 采用该规范
+-   **CommonJS：** Node.js 采用该规范
 
-- **ES 模块：** JavaScript 内置模块系统
+-   **ES 模块：** JavaScript 内置模块系统
 
 下面我们主要说一下`UMD`、`CommonJS`、`ES模块`，为什么只讨论这三个，毕竟 AMD、CMD 大概率已经是过去式了，估计好多人虽然听过但是几乎没有使用过，所以不需要大篇幅展开。
 
@@ -120,21 +120,21 @@ function isJson(value) {
 **代码结构：**
 
 ```js
-(function (global, factory) {
-  // 根据当前的环境采取不同的导出方式
-  if (typeof define === "function" && define.amd) {
-    // ADM
-    define(factory);
-  } else if (typeof exports === "object") {
-    // CommomJS
-    module.exports = factory();
-  } else {
-    // 非模块化环境
-    global.LBUtils = factory();
-  }
+;(function (global, factory) {
+    // 根据当前的环境采取不同的导出方式
+    if (typeof define === 'function' && define.amd) {
+        // ADM
+        define(factory)
+    } else if (typeof exports === 'object') {
+        // CommomJS
+        module.exports = factory()
+    } else {
+        // 非模块化环境
+        global.LBUtils = factory()
+    }
 })(this, function () {
-  // 这里写逻辑代码
-});
+    // 这里写逻辑代码
+})
 ```
 
 ##### CommonJS
@@ -148,15 +148,15 @@ function isJson(value) {
 ```js
 // 导出模块 math.js
 function sum(a, b) {
-  return a + b;
+    return a + b
 }
-const PI = 3.14159;
-module.exports = { sum, PI };
+const PI = 3.14159
+module.exports = { sum, PI }
 
 // 导入模块 main.js
-const { sum, PI } = require("./math.js");
-console.log(sum(1, 2)); // 输出: 3
-console.log(PI); // 输出: 3.14159
+const { sum, PI } = require('./math.js')
+console.log(sum(1, 2)) // 输出: 3
+console.log(PI) // 输出: 3.14159
 ```
 
 ##### ES 模块（ESM）
@@ -172,14 +172,14 @@ console.log(PI); // 输出: 3.14159
 ```js
 // 导出模块 math.js
 export function sum(a, b) {
-  return a + b;
+    return a + b
 }
-export const PI = 3.14159;
+export const PI = 3.14159
 
 // 导入模块main.js
-import { sum, PI } from "./math.js";
-console.log(sum(1, 2)); // 输出: 3
-console.log(PI); // 输出: 3.14159
+import { sum, PI } from './math.js'
+console.log(sum(1, 2)) // 输出: 3
+console.log(PI) // 输出: 3.14159
 ```
 
 模块化的前世今生可参考这片文章[传送门](https://zhuanlan.zhihu.com/p/561694739)或网上搜索更多信息了解，这里我们稍作了解是为了打包构建做基础。
@@ -188,23 +188,23 @@ console.log(PI); // 输出: 3.14159
 
 &emsp;npm、yarn 和 pnpm 都是 JavaScript 生态系统中常用的包管理工具，它们用于管理项目依赖、运行脚本和发布包。
 
-##### npm
+#### npm
 
 npm（Node Package Manager）是 Node.js 的默认包管理工具，随 Node.js 一起安装，也是世界上最大的软件注册中心。
 
 **命令**
 
-- `npm config list -l` 列出所有 npm 的默认配置，包括 registry
+-   `npm config list -l` 列出所有 npm 的默认配置，包括 registry
 
-- `npm config get registry` 获取当前配置的 registry
+-   `npm config get registry` 获取当前配置的 registry
 
-- `npm config set registry https://地址` 设置 npm 源，这是永久的
+-   `npm config set registry https://地址` 设置 npm 源，这是永久的
 
-- `npm install pkg --registry=https://xxxx地址` 安装包的时候临时指定某个源，一般是安装自己公司的内部包的时候用，或者项目里面通过`.npmrc`来配置源
+-   `npm install pkg --registry=https://xxxx地址` 安装包的时候临时指定某个源，一般是安装自己公司的内部包的时候用，或者项目里面通过`.npmrc`来配置源
 
-- `npm login` 登录
+-   `npm login` 登录
 
-- `npm publish` 发布项目
+-   `npm publish` 发布项目
 
 一些常用的基础命令就不一一列举了，毕竟天天使用，主要跟发布相关，这里是[npm CLI 传送门](https://docs.npmjs.com/cli/v10/commands/npm)
 
@@ -216,19 +216,19 @@ npm（Node Package Manager）是 Node.js 的默认包管理工具，随 Node.js 
 
 相关字段：
 
-- `name` 包的名称，必须是小写字母，可以包含连字符和下划线，我们工具包名称为 lb-utils 。
+-   `name` 包的名称，必须是小写字母，可以包含连字符和下划线，我们工具包名称为 lb-utils 。
 
-- `version` 项目版本号，遵循 SemVer（语义化版本）规范。
+-   `version` 项目版本号，遵循 SemVer（语义化版本）规范。
 
-- `main` 用于指定 CommonJS 模块的入口
+-   `main` 用于指定 CommonJS 模块的入口
 
-- `module` 用于指定包的 ES 模块入口（Node 却并未采纳，打包工具却普遍支持了该字段）
+-   `module` 用于指定包的 ES 模块入口（Node 却并未采纳，打包工具却普遍支持了该字段）
 
-- `browser` 用于指定浏览器使用的入口文件，例如 umd 模块
+-   `browser` 用于指定浏览器使用的入口文件，例如 umd 模块
 
-- `exports` 在 Node.js 12+中被支持作为"main"的替代方案（在"exports"中定义的所有路径必须是以./开头的相对文件 URL）
+-   `exports` 在 Node.js 12+中被支持作为"main"的替代方案（在"exports"中定义的所有路径必须是以./开头的相对文件 URL）
 
-- `files` 指定哪些文件被推到 npm 服务器
+-   `files` 指定哪些文件被推到 npm 服务器
 
 还有一些其它配置字段我们会在后面用到的时候陆陆续续讲解。
 
@@ -252,19 +252,19 @@ NPM 源管理工具，快速切换不同的源，[传送门](https://github.com/
 
 常用命令：
 
-- `npm install -g nrm` 使用 npm 全局安装 nrm 工具
+-   `npm install -g nrm` 使用 npm 全局安装 nrm 工具
 
-- `nrm ls` 列出可选的源，如果有使用的前面则会带`*`号，会覆盖 npm 的设置
+-   `nrm ls` 列出可选的源，如果有使用的前面则会带`*`号，会覆盖 npm 的设置
 
-- `nrm add 名字 http://地址` 添加一个源
+-   `nrm add 名字 http://地址` 添加一个源
 
-- `nrm use xxx` 使用 xxx 源，`nrm use cnpm`表示使用 cnpm 源
+-   `nrm use xxx` 使用 xxx 源，`nrm use cnpm`表示使用 cnpm 源
 
 ##### yarn
 
 yarn（Yet Another Resource Negotiator）是由 Facebook 开发的包管理工具，旨在解决 npm 早期版本的一些性能和安全问题。
 
-图
+图![alt text](<yarn_vs_npm .png>)
 
 这里我就不做过多赘述，因为孔子不用，墨子不用，老子也不爱用这个玩意儿，想要了解更多进入[传送门](https://yarnpkg.com/getting-started/usage)
 
@@ -301,19 +301,19 @@ pnpm vs npm
 ```js
 // rollup.config.js
 export default {
-  input: "src/index.js",
-  output: [
-    {
-      file: "dist/bundle.esm.js",
-      format: "es",
-    },
-    {
-      file: "dist/bundle.umd.js",
-      format: "umd",
-      name: "LBUtils",
-    },
-  ],
-};
+    input: 'src/index.js',
+    output: [
+        {
+            file: 'dist/bundle.esm.js',
+            format: 'es'
+        },
+        {
+            file: 'dist/bundle.umd.js',
+            format: 'umd',
+            name: 'LBUtils'
+        }
+    ]
+}
 ```
 
 `rollup` 使用指南请进入[传送门](https://rollupjs.org/tutorial/)
@@ -328,21 +328,21 @@ Babel 是一个 JavaScript 编译器，主要用于将采用 ECMAScript 2015+ �
 
 ##### Babel 能为你做的事情
 
-- 语法转换
+-   语法转换
 
-- 源码转换
+-   源码转换
 
-- 通过 Polyfill 方式在目标环境中添加缺失的功能
+-   通过 Polyfill 方式在目标环境中添加缺失的功能
 
 ##### 为什么需要
 
-- 提高浏览器兼容性
+-   提高浏览器兼容性
 
-- 享受新的语法特性
+-   享受新的语法特性
 
-- 提高开发效率
+-   提高开发效率
 
-- 扩展生态系统
+-   扩展生态系统
 
 ##### 如何使用
 
@@ -356,11 +356,11 @@ npm install --save-dev @rollup/plugin-babel @babel/core @babel/preset-env
 
 ```js
 // rollup.config.js
-import babel from "@rollup/plugin-babel";
+import babel from '@rollup/plugin-babel'
 
 export default {
-  plugins: [babel({ babelHelpers: "bundled" })],
-};
+    plugins: [babel({ babelHelpers: 'bundled' })]
+}
 ```
 
 ```js
@@ -372,53 +372,53 @@ export default {
 
 rollup 配置 Babel 查看这里[传送门](https://rollupjs.org/tools/#babel)，其它构建工具中如何使用可参考这里[传送门](https://www.babeljs.cn/setup#installation)
 
-
 ## 三、测试
 
 &emsp;为什么需要测试？你说为什么，假如一个 js 库或者组件没有测试过你敢用吗？你平时写业务需求不测试敢上线吗？五星上将麦克阿瑟曾说过，没有单元测试的库都是耍流氓。业务代码由于一次性和时间成本可以不做单元测试，但开源库由于需要反复迭代，对质量要求又极高，所以单元测试是必不可少的。
 
-- 确保代码质量和可靠性
+-   确保代码质量和可靠性
 
-- 提高代码可维护性
+-   提高代码可维护性
 
-- 快速定位问题
+-   快速定位问题
 
 ### 测试分类
 
-- 单元测试
+-   单元测试
 
-- 组件测试
+-   组件测试
 
-- 端到端（E2E）测试
+-   端到端（E2E）测试
 
 ### 测试场景
 
-- 开发纯函数库，建议写更多的单元测试 + 少量的集成测试
+-   开发纯函数库，建议写更多的单元测试 + 少量的集成测试
 
-- 开发组件库，建议写更多的单元测试、为每个组件编写快照测试、写少量的集成测试 + 端到端测试
+-   开发组件库，建议写更多的单元测试、为每个组件编写快照测试、写少量的集成测试 + 端到端测试
 
-- 开发业务系统，建议写更多的集成测试、为工具类库、算法写单元测试、写少量的端到端测试
+-   开发业务系统，建议写更多的集成测试、为工具类库、算法写单元测试、写少量的端到端测试
 
-- 开发公共平台项目，建议写更多的集成测试和完整的端到端测试
+-   开发公共平台项目，建议写更多的集成测试和完整的端到端测试
 
 ### 测试框架
 
-&emsp;测试框架很多，一些流行的前端自动化测试框架包括Jest、Mocha、Chai、Protractor和Cypress等，我们可以根据不同的场景选择不同的框架，这里我们是一个纯js函数库，我们可以选择最流行的jest，也可以选择比较新的 vitest 等，而 Vitest 完全的集成了老牌 jest 的功能，具体对比可以看传送门：[Vitest 与 X 有何不同](https://cn.vitest.dev/guide/comparisons.html)
+&emsp;测试框架很多，一些流行的前端自动化测试框架包括 Jest、Mocha、Chai、Protractor 和 Cypress 等，我们可以根据不同的场景选择不同的框架，这里我们是一个纯 js 函数库，我们可以选择最流行的 jest，也可以选择比较新的 vitest 等，而 Vitest 完全的集成了老牌 jest 的功能，具体对比可以看传送门：[Vitest 与 X 有何不同](https://cn.vitest.dev/guide/comparisons.html)
 
 具体如何使用参考官方的网站，下面是我们需要编写的测试用例代码：
 
 图片测试-1
 
 图中覆盖率表格说明：
-- 行覆盖率（Lines）：显示代码中有多少行被执行了
-- 函数覆盖率（Functions）：显示代码中有多少函数被调用了
-- 分支覆盖率（Branches）：显示代码中有多少条件分支被执行了
-- 语句覆盖率（Statements）：显示代码中有多少语句被执行了
-- 未覆盖的行号（uncovered line）：显示代码中哪几行未覆盖执行
+
+-   行覆盖率（Lines）：显示代码中有多少行被执行了
+-   函数覆盖率（Functions）：显示代码中有多少函数被调用了
+-   分支覆盖率（Branches）：显示代码中有多少条件分支被执行了
+-   语句覆盖率（Statements）：显示代码中有多少语句被执行了
+-   未覆盖的行号（uncovered line）：显示代码中哪几行未覆盖执行
 
 ### 设计测试用例
 
-&emsp;用什么测试框架并不重要，重要的是如何编写测试用例，上面我们虽然写了index.js文件中isJson行数的单元测试，但是通过覆盖率报告发现还是有一些代码没有测试到，所以如何设计测试用例就变得很关键，那么我们改如何去设计呢？书中大佬给出了一种方案，那就是根据参数去设计，包括**正确的测试用例**、**错误的测试用例**、**边界值测试用例**，这里我们只有一个参数，所以我们测试用例需要覆盖三种情况。
+&emsp;用什么测试框架并不重要，重要的是如何编写测试用例，上面我们虽然写了 index.js 文件中 isJson 行数的单元测试，但是通过覆盖率报告发现还是有一些代码没有测试到，所以如何设计测试用例就变得很关键，那么我们改如何去设计呢？书中大佬给出了一种方案，那就是根据参数去设计，包括**正确的测试用例**、**错误的测试用例**、**边界值测试用例**，这里我们只有一个参数，所以我们测试用例需要覆盖三种情况。
 
 下面是改造后的测试用例代码：
 
@@ -426,34 +426,33 @@ rollup 配置 Babel 查看这里[传送门](https://rollupjs.org/tools/#babel)�
 
 从上图测试覆盖率报告可以看到，基本上所有代码执行都覆盖到了。
 
-&emsp;关于如何设计测试用例是一门学问，这里举例的场景比较单一，集成化测试、端到端的测试用例设计将更加复杂，大家可以去看看一些开源库是如何编写的，比如React、Vue等这些著名的框架测试用例设计想是十分值得我们去学习的。
-
+&emsp;关于如何设计测试用例是一门学问，这里举例的场景比较单一，集成化测试、端到端的测试用例设计将更加复杂，大家可以去看看一些开源库是如何编写的，比如 React、Vue 等这些著名的框架测试用例设计想是十分值得我们去学习的。
 
 ## 四、开源
 
 &emsp;当我们代码写完，测试也通过了，那么我们就可以把我们的代码开源给其他人使用了。如何给别人用，那当然是发布了，也就是开源。通常包括两部分：
 
-- 把源码推到全球最大同性交友网站 `GitHub`，让其它开发者可以查阅和参与
+-   把源码推到全球最大同性交友网站 `GitHub`，让其它开发者可以查阅和参与
 
-- 把构建后的代码发布到 `npm`，让其他人可以下载使用
+-   把构建后的代码发布到 `npm`，让其他人可以下载使用
 
 &emsp;我们平常在 Github 上访问一些比较流行的库时可能有些细心的人会发现源码中有许多跟代码不直接相关的文档，比如`LICENSE`、`CONTRIBUTING.md`、`CHANGELOG.md`、`SECURITY.md`、`README.md`等，不管是开源还是使用，如果不注意的话很可能就对带来意外的问题，严重甚至破财，下面我们就说一说开源大概需要注意哪些事项。
 
 ### 协议
 
-&emsp;最近开源社区发生了一件知名开源作者删库跑路事件，一位知名的开源项目作者突然在 GitHub 上删除了其开发的下载工具Aria的所有源码，这位作者选择删除代码的原因，却让人感到痛心：他表示由于项目被不法分子利用，不得不采取这一极端措施。所以规范好开源协议还是十分重要的，如果一个不小心进去了都不知道什么情况。
+&emsp;最近开源社区发生了一件知名开源作者删库跑路事件，一位知名的开源项目作者突然在 GitHub 上删除了其开发的下载工具 Aria 的所有源码，这位作者选择删除代码的原因，却让人感到痛心：他表示由于项目被不法分子利用，不得不采取这一极端措施。所以规范好开源协议还是十分重要的，如果一个不小心进去了都不知道什么情况。
 
 &emsp;开源协议（Open Source License）是用于定义开源软件的使用、修改和分发的法律条款。不同的开源协议有不同的要求和限制，选择合适的开源协议对于项目的成功和社区的发展至关重要。作为一个开发者，如果你打算开源自己的代码，千万不要忘记，选择一种开源许可证（license）。
 
 &emsp;当我们每次通过 `npm init` 命令初始化一个工程的 package.json 文件时，会有 `license` 配置项让我们配置，默认是 ISC，如果你仔细看了一些开源的代码，会发现都会有不同的值，大多数比如 vue、react、eslint 仓库中 package.json 文件 license 配置的值就是 `MIT`协议，而 weex、typescript 选择的是 `Apache-2.0`协议。
 
-&emsp;什么是开源许可证？可以参考阮一峰大神的文章，传送门[开源许可证教程](http://www.ruanyifeng.com/blog/2017/10/open-source-license-tutorial.html)，目前世界上的开源许可证，大概有上百种，例如GPL、BSD、MIT、Mozilla、Apache和LGPL等，那么我们要如何为代码选择开源许可证，这是一个问题？不过问题不大，有大佬帮我们总结出来了，如图：
+&emsp;什么是开源许可证？可以参考阮一峰大神的文章，传送门[开源许可证教程](http://www.ruanyifeng.com/blog/2017/10/open-source-license-tutorial.html)，目前世界上的开源许可证，大概有上百种，例如 GPL、BSD、MIT、Mozilla、Apache 和 LGPL 等，那么我们要如何为代码选择开源许可证，这是一个问题？不过问题不大，有大佬帮我们总结出来了，如图：
 
 ![free_software_licenses.png](https://upload-images.jianshu.io/upload_images/23495033-24c151b45a33afbd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 ![wKgaomRWILaAX-pCAABiqRiTBu4065.jpg](https://upload-images.jianshu.io/upload_images/23495033-60d3e01ffaa6aa65.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-我们开源一个js工具库该如何选择呢，遇事不决选 MIT ，那么package.json 中填写了协议配置就行了吗？非也非也，你只有协议，但是没有协议内容不就是一个空口承诺，所以我们需要在我们的仓库中添加一个名为`LICENSE`的文件，这个文件中就是我们协议的具体说明内容。
+我们开源一个 js 工具库该如何选择呢，遇事不决选 MIT ，那么 package.json 中填写了协议配置就行了吗？非也非也，你只有协议，但是没有协议内容不就是一个空口承诺，所以我们需要在我们的仓库中添加一个名为`LICENSE`的文件，这个文件中就是我们协议的具体说明内容。
 
 ```
 The MIT License (MIT)
@@ -485,24 +484,24 @@ THE SOFTWARE.
 
 &emsp;除了协议外，一个标准的库还应该包括各种各样的文档。
 
-- README
-- 待办清代
-- 变更日志
-- 贡献者列表
-- 贡献者盟约行为守则
-- package.json
+-   README
+-   待办清代
+-   变更日志
+-   贡献者列表
+-   贡献者盟约行为守则
+-   package.json
 
-&emsp;`README.md`是最常见的，也是一个库最先看到的文档内容，一定程度直接影响库的使用者的选择，一个合格的README通常包括库的介绍、使用指南、贡献者指南、协议说明等，如果库功能不多可能API文档也会直接写在README文件中，当然除了这些还可以包含一些其它与库相关的说明，现在库还会在文档增加一些[Tag徽章](https://shields.io/badges/static-badge)，由于各库的功能不一致目前README也没有统一的标准。
+&emsp;`README.md`是最常见的，也是一个库最先看到的文档内容，一定程度直接影响库的使用者的选择，一个合格的 README 通常包括库的介绍、使用指南、贡献者指南、协议说明等，如果库功能不多可能 API 文档也会直接写在 README 文件中，当然除了这些还可以包含一些其它与库相关的说明，现在库还会在文档增加一些[Tag 徽章](https://shields.io/badges/static-badge)，由于各库的功能不一致目前 README 也没有统一的标准。
 
-![NPM Version](https://img.shields.io/npm/v/vue)  ![NPM Downloads](https://img.shields.io/npm/dm/vue)
+![NPM Version](https://img.shields.io/npm/v/vue) ![NPM Downloads](https://img.shields.io/npm/dm/vue)
 
- ![build status](https://github.com/vuejs/core/actions/workflows/ci.yml/badge.svg?branch=main)
+![build status](https://github.com/vuejs/core/actions/workflows/ci.yml/badge.svg?branch=main)
 
- ![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)
+![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)
 
- ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)]
+![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
 
-&emsp;`TODO.md`文件不是很常见，其作用主要是列出已经完成的功能和会在未来添加的新功能，通常也会直接写在README文件中。
+&emsp;`TODO.md`文件不是很常见，其作用主要是列出已经完成的功能和会在未来添加的新功能，通常也会直接写在 README 文件中。
 
 ```
 # todo.md文件
@@ -538,24 +537,25 @@ THE SOFTWARE.
 
 &emsp;当我们代码开发完成，测试通过，文档也写好了，那么我们就可以准备把我们的库发布到 GitHub 和 npm 上了。
 
-#### 源码发布到GitHub
+#### 源码发布到 GitHub
 
-&emsp;注册登录好 GitHub 账号后，然后创建一个仓库，随后使用 Git 把代码推送到仓库，需要注意的是构建后的代码、node_module、测试报告等是不需要推送上去的，我我们通过 `.gitignore` 文件过滤掉。
+&emsp;注册登录好 GitHub 账号后，然后创建一个仓库，随后使用 Git 把代码推送到仓库，需要注意的是构建后的代码、node_module、测试报告等是不需要推送上去的，我们通过 `.gitignore` 文件过滤掉。
 
-#### 构建后的代码发布到npm
+#### 构建后的代码发布到 npm
 
-&emsp;如果别人想要使用我们的库，通过GitHub只能手动下载下来，而npm是全球最大的包托管平台，将库发布到npm后只需要一个命令就可下载下来，所以我们需要把构建好的文件发布到npm。前面构建部分我们已经简单介绍了 npm 及常用指令，我们发布代码到 npm 同样需要注册登录账号，注册完成后就可以使用命令行登录发布了。
+&emsp;如果别人想要使用我们的库，通过 GitHub 只能手动下载下来，而 npm 是全球最大的包托管平台，将库发布到 npm 后只需要一个命令就可下载下来，所以我们需要把构建好的文件发布到 npm。前面构建部分我们已经简单介绍了 npm 及常用指令，我们发布代码到 npm 同样需要注册登录账号，注册完成后就可以使用命令行登录发布了。
 
 ```bash
 # 第一步：登录账号，输入账号密码邮箱登信息
-npm login 
+npm login
 
 # 第二步：推到托管平台
 npm publish --access public
 ```
-&emsp;就这样简单两步就完成了，但是在发布到npm前还有一些需要注意的地方，比如npm的源地址是公司的还是官方平台，比如确认哪些文件需要发布到npm，如果一股脑全部推上去会影响包的大小和下载速度，还有package.json中的一些信息也需要完善，通过npm包可以直接找到源码仓库等。
 
-&emsp;`README.md`、`CHANGELOG.md`、`package.json`文件是默认需要发布的，而`.gitignore`中间列出来的文件是会忽略的，我们可以通过.gitignore来过滤不需要推送到npm包托管平台的文件，但是更常用的做法是通过 package.json 中的 `files`属性来配，而且优先级更高。
+&emsp;就这样简单两步就完成了，但是在发布到 npm 前还有一些需要注意的地方，比如 npm 的源地址是公司的还是官方平台，比如确认哪些文件需要发布到 npm，如果一股脑全部推上去会影响包的大小和下载速度，还有 package.json 中的一些信息也需要完善，通过 npm 包可以直接找到源码仓库等。
+
+&emsp;`README.md`、`CHANGELOG.md`、`package.json`文件是默认需要发布的，而`.gitignore`中间列出来的文件是会忽略的，我们可以通过.gitignore 来过滤不需要推送到 npm 包托管平台的文件，但是更常用的做法是通过 package.json 中的 `files`属性来配，而且优先级更高。
 
 ```bash
 {
@@ -578,25 +578,65 @@ npm publish --access public
 }
 ```
 
-&emsp;还有一个注意的点就是版本号，npm是通过版本号来管理不同的版本，每次发布版本也要不同，后面规范部分再详细介绍。
+&emsp;还有一个注意的点就是版本号，npm 是通过版本号来管理不同的版本，每次发布版本也要不同，后面规范部分再详细介绍。
 
 ### 统计
 
-&emsp;当我们发布了我们的库后，想要了解库的使用情况、问题、受关注度等，就可以通过GitHub和npm平台统计出来，比较直观的就是GitHub上的star数量了，然后Insights面板也有更详细的统计等，npm平台上有下载使用数据等可统计，需要注意的是可能通过其它镜像源下载的统计不出来。 
+&emsp;当我们发布了我们的库后，想要了解库的使用情况、问题、受关注度等，就可以通过 GitHub 和 npm 平台统计出来，比较直观的就是 GitHub 上的 star 数量了，然后 Insights 面板也有更详细的统计等，npm 平台上有下载使用数据等可统计，需要注意的是可能通过其它镜像源下载的统计不出来。
 
-&emsp;如果想要数据准确也可以自定义统计数据，通过npm提供的postinstall钩子来上报数据，用户安装就会触发钩子上报统计，但没必要。
+&emsp;如果想要数据准确也可以自定义统计数据，通过 npm 提供的 postinstall 钩子来上报数据，用户安装就会触发钩子上报统计，但没必要。
 
 ## 维护
 
+&emsp;到现在为止，我们已经发布了一个可以让别人使用的的 javascript 库，但是开源库发布成功，并不代表就万事大吉了，库的开源并不是一个一劳永逸的事情，它需要我们持续的迭代和维护，因为使用者总会遇到各种各样奇怪的问题和需求，为了不段满足用户可能需要不断迭代，但是个人的精力也是有限的，开源纯粹是热爱和为爱发电，所以一个优秀的开源库必定是大家共同参与建设，所谓无规矩不成方圆，大家遵守一份规范必定事半功倍。
+
 ### 规范
 
-编辑器规范
+#### 编辑器规范
 
-代码规范
+&emsp;我们可以通过 EditorConfig 来规范，EditorConfig 帮助多个开发人员在不同的编辑器和 IDE 中维护一致的编码风格，[EditorConfig 文档传送门](https://editorconfig.org/)，所以我们可以在我们的根目录创建一个`.editorconfig`文件，内如如下：
 
-版本规范
+```bash
+root = true
 
-Git Commit 规范
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+
+[*.{js,json}]
+indent_size = 4
+
+[*.{yml}]
+indent_size = 2
+
+[*.md]
+trim_trailing_whitespace = false
+```
+
+上述具体配置项不做过多解释，看官方文档和配置名称就大概知道什么意思了。注意的是有些编辑器是默认支持 EditorConfig 比如 WebStorm，有些需要安装插件才支持，比如 VS Code、Sublime Text 等。
+
+#### 代码规范
+
+&emsp;默认情况下，prettier会忽略版本控制系统目录（“.git”、“.sl”、“.svn”和“.hg”）和node_modules中的文件（除非指定了--with-node-modules CLI选项）。Prettier还将遵循“.gitignore”文件中指定的规则，如果它存在于运行它的同一目录中。
+
+```bash
+npx prettier --write .
+
+npx prettier --check .
+```
+
+npx retty-quick --staged
+
+#### 版本规范
+
+#### Git Commit 规范
+
+&emsp;
+
+![commit.png](https://upload-images.jianshu.io/upload_images/23495033-d4a001968439c752.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 ### 持续集成
 
@@ -605,45 +645,63 @@ Git Commit 规范
 ## 更好的设计
 
 更好的函数设计
-代码健壮性
+
+### 代码健壮性
+
+参数防御
+副作用处理
+异常捕获
+
 兼容性
+
 TypeScript 编码
+
 安全性
 
 ## 参考
 
-- https://segmentfault.com/a/1190000016610626
+-   https://segmentfault.com/a/1190000016610626
 
-- https://zhuanlan.zhihu.com/p/561694739
+-   https://zhuanlan.zhihu.com/p/561694739
 
-- https://es6.ruanyifeng.com/#docs/module
+-   https://es6.ruanyifeng.com/#docs/module
 
-- https://docs.npmjs.com/about-npm
+-   https://docs.npmjs.com/about-npm
 
-- https://nodejs.org/api/packages.html
+-   https://nodejs.org/api/packages.html
 
-- https://www.js-bridge.com/post/79e90464-0131-499c-86d8-32cf56344aa3
+-   https://www.js-bridge.com/post/79e90464-0131-499c-86d8-32cf56344aa3
 
-- https://yarnpkg.com/getting-started/usage
+-   https://yarnpkg.com/getting-started/usage
 
-- https://mp.weixin.qq.com/s/AquQMMvgW2quw_rzlYRHRg
+-   https://mp.weixin.qq.com/s/AquQMMvgW2quw_rzlYRHRg
 
-- https://www.babeljs.cn/docs/
+-   https://www.babeljs.cn/docs/
 
-- https://juejin.cn/post/7233765235555188791
+-   https://juejin.cn/post/7233765235555188791
 
-- https://juejin.cn/post/7303789262989017099
+-   https://juejin.cn/post/7303789262989017099
 
-- https://cn.vuejs.org/guide/scaling-up/testing
+-   https://cn.vuejs.org/guide/scaling-up/testing
 
-- https://github.com/goldbergyoni/javascript-testing-best-practices/blob/master/readme-zh-CN.md#%E7%AC%AC%E4%B8%89%E7%AB%A0-%E5%89%8D%E7%AB%AF%E6%B5%8B%E8%AF%95
+-   https://github.com/goldbergyoni/javascript-testing-best-practices/blob/master/readme-zh-CN.md#%E7%AC%AC%E4%B8%89%E7%AB%A0-%E5%89%8D%E7%AB%AF%E6%B5%8B%E8%AF%95
 
-- http://www.ruanyifeng.com/blog/2017/10/open-source-license-tutorial.html
+-   http://www.ruanyifeng.com/blog/2017/10/open-source-license-tutorial.html
 
-- http://www.ruanyifeng.com/blog/2011/05/how_to_choose_free_software_licenses.html
+-   http://www.ruanyifeng.com/blog/2011/05/how_to_choose_free_software_licenses.html
 
-- https://www.runoob.com/w3cnote/open-source-license.html?spm=a2c6h.13046898.publish-article.3.223b6ffaMgp7h1
+-   https://www.runoob.com/w3cnote/open-source-license.html?spm=a2c6h.13046898.publish-article.3.223b6ffaMgp7h1
 
-- https://zhuanlan.zhihu.com/p/697744701
+-   https://zhuanlan.zhihu.com/p/697744701
 
-- https://shields.io/badges/npm-downloads
+-   https://shields.io/badges/npm-downloads
+
+-   https://editorconfig.org/
+
+-   https://www.prettier.cn/docs/install.html
+
+-   https://typicode.github.io/husky/get-started.html
+
+-   https://github.com/lint-staged/lint-staged
+
+-   https://commitlint.js.org/guides/getting-started.html
